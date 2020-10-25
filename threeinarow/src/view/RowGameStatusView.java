@@ -2,38 +2,41 @@ package view;
 
 import java.awt.Color;
 import java.awt.FlowLayout;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
-import controller.RowGameController;
 import model.RowGameModel;
 
 
-public class RowGameStatusView implements RowGameView
+public class RowGameStatusView
 {
-    public JTextArea playerturn = new JTextArea();
+    public JTextArea playerturn = new JTextArea(); //can be private
     public JPanel messages = new JPanel(new FlowLayout());
 
     
-    public RowGameStatusView(RowGameController gameController) {
-	super();
+    public RowGameStatusView(RowGameModel gameModel) {
+        super();
 
-	messages.setBackground(Color.white);
-	messages.add(playerturn);
+        messages.setBackground(Color.white);
+        messages.add(playerturn);
+        gameModel.addPropertyChangeListener(new PropertyChangeListener() {
+            @Override
+            public void propertyChange(PropertyChangeEvent evt) {
+                String property = evt.getPropertyName();
+                if(property.equals("result")) updateResult((String)evt.getNewValue());
+                if(property.equals("player")) updatePlayer((RowGameModel.Player) evt.getNewValue());
+            }
+        });
     }
 
-    public void update(RowGameModel gameModel) {
-	if (gameModel.getFinalResult() == null) {
-	    if (gameModel.player.equals("1")) {
-		playerturn.setText("Player 1 to play 'X'");
-	    }
-	    else {
-		playerturn.setText("Player 2 to play 'O'");
-	    }
+    public void updatePlayer(RowGameModel.Player player) {
+    	playerturn.setText(player.toString() + " to play '" + player.mark() + "'");
+    }
+
+    public void updateResult(String result){
+    	playerturn.setText(result);
 	}
-	else {
-	    playerturn.setText(gameModel.getFinalResult());
-	}	
-    }
 }

@@ -5,38 +5,37 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.*;
 import java.awt.event.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
-import model.RowGameModel;
 import controller.RowGameController;
+import model.RowGameModel;
 
 
-public class RowGameGUI implements RowGameView
+public class RowGameGUI
 {
     public JFrame gui = new JFrame("Three in a Row");
-    public RowGameBoardView gameBoardView;
-    public JButton reset = new JButton("Reset");
-    public RowGameStatusView gameStatusView;
-    
-    private RowGameController gameController;
+    public RowGameBoardView gameBoardView; //can be private
+    private JButton reset = new JButton("Reset");
+    public RowGameStatusView gameStatusView; //can be private
 
 
     /**
      * Creates a new game initializing the GUI.
      */
-    public RowGameGUI(RowGameController gameController) {
-	this.gameController = gameController;
-	
+    public RowGameGUI(RowGameController gameController, RowGameModel gameModel) {
+
         gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         gui.setSize(new Dimension(500, 350));
         gui.setResizable(true);
 
-	gameBoardView = new RowGameBoardView(this.gameController);
+	    gameBoardView = new RowGameBoardView(gameController, gameModel);
         JPanel gamePanel = gameBoardView.gamePanel;
 
         JPanel options = new JPanel(new FlowLayout());
         options.add(reset);
 
-	gameStatusView = new RowGameStatusView(this.gameController);
+	    gameStatusView = new RowGameStatusView(gameModel);
         JPanel messages = gameStatusView.messages;
 
         gui.add(gamePanel, BorderLayout.NORTH);
@@ -45,20 +44,9 @@ public class RowGameGUI implements RowGameView
 
         reset.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                gameController.resetGame();
+                gameController.reset(gameModel);
             }
         });
-    }
-
-    /**
-     * Updates the game view after the game model
-     * changes state.
-     *
-     * @param gameModel The current game model
-     */
-    public void update(RowGameModel gameModel) {
-	gameBoardView.update(gameModel);
-
-	gameStatusView.update(gameModel);
+        gameController.reset(gameModel);
     }
 }

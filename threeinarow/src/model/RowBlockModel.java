@@ -1,6 +1,9 @@
 package model;
 
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+
 /**
  * The RowBlockModel class represents a given block in the game.
  */
@@ -21,6 +24,8 @@ public class RowBlockModel
      */
     private boolean isLegalMove;
 
+    private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
+
     /**
      * Creates a new block that will be contained in the given game.
      *
@@ -28,31 +33,40 @@ public class RowBlockModel
      * @throws IllegalArgumentException When the given game is null
      */
     public RowBlockModel(RowGameModel game) {
-	super();
+        super();
 
-	if (game == null) {
-	    throw new IllegalArgumentException("The game must be non-null.");
-	}
-	
-	this.game = game;
-	this.reset();
+        if (game == null) {
+            throw new IllegalArgumentException("The game must be non-null.");
+        }
+
+        this.game = game;
+        this.reset();
     }
 
     public RowGameModel getGame() {
-	return this.game;
+	    return this.game;
+    }
+
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        this.pcs.addPropertyChangeListener(listener);
+    }
+
+    public void removePropertyChangeListener(PropertyChangeListener listener) {
+        this.pcs.removePropertyChangeListener(listener);
     }
 
     /**
      * Sets the contents of this block to the given value.
      *
-     * @param value The new value for the contents of this block
+     * @param newValue The new value for the contents of this block
      * @throws IllegalArgumentException When the given value is null
      */
-    public void setContents(String value) {
-	if (value == null) {
-	    throw new IllegalArgumentException("The value must be non-null.");
-	}
-	this.contents = value;
+    public void setContents(String newValue) {
+        if (newValue == null) {
+            throw new IllegalArgumentException("The value must be non-null.");
+        }
+	    this.contents = newValue;
+        this.pcs.firePropertyChange("content", null, newValue);
     }
 
     /**
@@ -65,7 +79,8 @@ public class RowBlockModel
     }
 
     public void setIsLegalMove(boolean isLegalMove) {
-	this.isLegalMove = isLegalMove;
+	    this.isLegalMove = isLegalMove;
+        this.pcs.firePropertyChange("legal", null, isLegalMove);
     }
 
     public boolean getIsLegalMove() {
@@ -76,7 +91,7 @@ public class RowBlockModel
      * Resets this block before starting a new game.
      */
     public void reset() {
-	this.contents = "";
-	this.isLegalMove = false;
+	    this.setContents("");
+	    this.setIsLegalMove(false);
     }
 }
