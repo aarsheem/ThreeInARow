@@ -1,5 +1,5 @@
 # ThreeInARow
-ThreeInARowGame.java and ThreeInARowBlock.java are a basic Java implementation of the Three in a Row game.
+This is a basic Java implementation of the Three in a Row game.
 
 ### How to build and test (from Terminal):
 
@@ -14,7 +14,7 @@ ThreeInARowGame.java and ThreeInARowBlock.java are a basic Java implementation o
 ### How to run (from Terminal):
 
 1. After building the project (i.e., running `ant`), run the following command in the threeinarow folder:
-   `java -cp bin ThreeInARowGame`
+   `java -cp bin RowGameApp`
 
 ### How to clean up (from Terminal):
 
