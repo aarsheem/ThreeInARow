@@ -13,9 +13,15 @@ This is a basic Java implementation of the Three in a Row game.
 
 ### How to run (from Terminal):
 
-1. After building the project (i.e., running `ant`), run the following command in the threeinarow folder:
-   `java -cp bin RowGameApp`
+1. There are two choices of games which you can play. One is Tic-Tac-Toe, other is Three-In-A-Row. 
+2. After building the project (i.e., running `ant`), run the following command in the threeinarow folder:
+   `java -cp bin RowGameApp <Game>`. 
+3. You need to pass `TicTacToe` or `ThreeInARow` in place of `<Game>` in the command line argument to choose the game you want to run.
+4. By default, code runs with `ThreeInARow`.
 
 ### How to clean up (from Terminal):
 
 1. Run `ant clean` to clean the project (i.e., delete all generated files).
+
+
+

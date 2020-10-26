@@ -21,4 +21,9 @@ public class RowGameRulesTicTacToe extends RowGameRulesStrategy{
         gameModel.blocksData[row][col].setContents(player.mark());
         gameModel.blocksData[row][col].setIsLegalMove(false);
     }
+
+    @Override
+    public String toString() {
+        return "Tic Tac Toe";
+    }
 }

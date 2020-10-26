@@ -23,4 +23,9 @@ public class RowGameRulesThreeInARow extends RowGameRulesStrategy {
         gameModel.blocksData[row][col].setIsLegalMove(false);
         if(row != 0) gameModel.blocksData[row-1][col].setIsLegalMove(true);//nextturn, draw, win
     }
+
+    @Override
+    public String toString() {
+        return "Three In A Row";
+    }
 }

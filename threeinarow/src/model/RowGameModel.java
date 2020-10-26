@@ -10,11 +10,10 @@ import java.beans.PropertyChangeSupport;
 public class RowGameModel
 {
     public RowBlockModel[][] blocksData = new RowBlockModel[3][3];
-
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
-
-
     public int movesLeft;
+    private Player player;
+    private Result result;
 
     /**
      * The current player taking their turn
@@ -43,10 +42,6 @@ public class RowGameModel
             return player.toString() + " wins!";
         }
     }
-
-    private Player player;
-    private Result result;
-
 
     public RowGameModel() {
 	    super();

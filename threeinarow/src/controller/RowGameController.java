@@ -38,4 +38,9 @@ public class RowGameController{
             }
         }
     }
+
+    @Override
+    public String toString() {
+        return gameRule.toString();
+    }
 }

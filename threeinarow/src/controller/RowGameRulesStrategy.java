@@ -11,8 +11,6 @@ public abstract class RowGameRulesStrategy {
     public abstract void move(RowGameModel gameModel, int row, int col);
 
     private boolean isWinDir(RowGameModel gameModel, int[] pos, int[] dir){
-        System.out.println(Arrays.toString(Arrays.stream(pos).toArray()));
-        System.out.println(Arrays.toString(Arrays.stream(dir).toArray()) + "\n");
         int row = pos[0], col = pos[1];
         int rowDir = dir[0], colDir = dir[1];
         String match = gameModel.blocksData[row][col].getContents();
@@ -24,7 +22,6 @@ public abstract class RowGameRulesStrategy {
             col += colDir;
             count++;
         }
-
         return true;
     }
 

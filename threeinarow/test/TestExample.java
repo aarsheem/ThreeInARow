@@ -77,8 +77,10 @@ public class TestExample {
     }
 
     @Test
-    public void testViewStatus(){
+    public void testView(){
         assertEquals(gTicTacToe.gameStatusView.playerturn.getText(), "Player 1 to play 'X'");
+        for(int i = 0; i < 3; i++) for(int j = 0; j < 3; j++)
+            assertEquals(gTicTacToe.gameBoardView.blocks[i][j].getText(), "");
     }
 
     @Test
@@ -119,7 +121,6 @@ public class TestExample {
         gTicTacToe.gameBoardView.blocks[1][1].doClick();
         gTicTacToe.gameBoardView.blocks[1][2].doClick();
         assertEquals(mTicTacToe.getFinalResult(), "Game ends in a draw");
-
     }
     
     @Test
@@ -132,12 +133,16 @@ public class TestExample {
 
     @Test
     public void testThreeInARowIllegal(){
+        gThreeInARow.gameBoardView.blocks[1][1].doClick();
         assertEquals(mThreeInARow.blocksData[1][1].getIsLegalMove(), false);
+        assertEquals(mThreeInARow.blocksData[1][1].getContents(), "");
+
     }
 
     @Test
     public void testThreeInARowLegal(){
-        assertEquals(mThreeInARow.blocksData[2][2].getIsLegalMove(), true);
+        gThreeInARow.gameBoardView.blocks[2][2].doClick();
+        assertEquals(mThreeInARow.blocksData[2][2].getContents(), "X");
     }
 
     @Test
@@ -156,7 +161,6 @@ public class TestExample {
         gThreeInARow.gameBoardView.blocks[2][1].doClick();
         gThreeInARow.gameBoardView.blocks[1][0].doClick();
         gThreeInARow.gameBoardView.blocks[1][1].doClick();
-
         gThreeInARow.gameBoardView.blocks[0][1].doClick();
         gThreeInARow.gameBoardView.blocks[0][0].doClick();
         gThreeInARow.gameBoardView.blocks[2][2].doClick();

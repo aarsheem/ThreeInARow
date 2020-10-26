@@ -11,7 +11,6 @@ public class RowGameApp
     public static void main(String[] args) {
         RowGameRulesStrategy rule;
         RowGameModel model = new RowGameModel();
-        System.out.println(args[0]);
         if(args.length == 0 || args[0].equals("ThreeInARow")) rule = new RowGameRulesThreeInARow();
         else rule = new RowGameRulesTicTacToe();
         RowGameController controller = new RowGameController(model, rule);

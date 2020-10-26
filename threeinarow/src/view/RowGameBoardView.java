@@ -35,7 +35,10 @@ public class RowGameBoardView
                 game.add(blocks[row][column]);
                 blocks[row][column].addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
-			            move((JButton)e.getSource(), gameController, gameModel);
+                        JButton button = (JButton)e.getSource();
+                        int row = (int)button.getClientProperty("row");
+                        int col = (int)button.getClientProperty("col");
+                        gameController.move(gameModel, row, col);
                     }
                 });
                 JButton button = blocks[row][column];
@@ -49,15 +52,5 @@ public class RowGameBoardView
                 });
             }
         }	
-    }
-
-    private void move(JButton button, RowGameController gameController, RowGameModel gameModel){
-        for(int i = 0; i < 3; i++){
-            for(int j = 0; j < 3; j++){
-                if(button == blocks[i][j]){
-                    gameController.move(gameModel, i, j);
-                }
-            }
-        }
     }
 }
