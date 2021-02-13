@@ -1,6 +1,3 @@
-# cs520-Spring2020
-Resources for the CS520 course held Spring 2020
-
 ## ThreeInARow
 This is a basic Java implementation of the Three in a Row game.
 
