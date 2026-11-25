@@ -2,30 +2,32 @@ import controller.RowGameController;
 import controller.RowGameRulesStrategy;
 import controller.RowGameRulesThreeInARow;
 import controller.RowGameRulesTicTacToe;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import static org.junit.Assert.*;
-
 import model.RowBlockModel;
 import model.RowGameModel;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import view.RowGameGUI;
 
-import javax.swing.*;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
- * An example test class, which merely shows how to write JUnit tests.
+ * Unit tests for ThreeInARow and TicTacToe game modes using JUnit 5.
  */
 public class TestExample {
-    private RowGameModel mThreeInARow, mTicTacToe;
+    private RowGameModel mThreeInARow;
+    private RowGameModel mTicTacToe;
     private RowGameRulesStrategy threeInARow;
     private RowGameRulesStrategy ticTacToe;
     private RowGameController cTicTacToe;
     private RowGameController cThreeInARow;
-    private RowGameGUI gThreeInARow, gTicTacToe;
+    private RowGameGUI gThreeInARow;
+    private RowGameGUI gTicTacToe;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         mThreeInARow = new RowGameModel();
         mTicTacToe = new RowGameModel();
@@ -37,7 +39,7 @@ public class TestExample {
         gTicTacToe = new RowGameGUI(cTicTacToe, mTicTacToe);
     }
 
-    @After
+    @AfterEach
     public void tearDown() {
         mTicTacToe = null;
         mThreeInARow = null;
@@ -51,24 +53,24 @@ public class TestExample {
 
     @Test
     public void testNewGame() {
-        assertEquals (RowGameModel.Player.Player1, mThreeInARow.getPlayer());
-        assertEquals (9, mThreeInARow.movesLeft);
+        assertEquals(RowGameModel.Player.Player1, mThreeInARow.getPlayer());
+        assertEquals(9, mThreeInARow.movesLeft);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testNewBlockViolatesPrecondition() {
-	    RowBlockModel block = new RowBlockModel(null);
+        assertThrows(IllegalArgumentException.class, () -> new RowBlockModel(null));
     }
 
     @Test
-    public void testControllerMove(){
+    public void testControllerMove() {
         cTicTacToe.move(mThreeInARow, 0, 0);
-        assertEquals(mThreeInARow.blocksData[0][0].getIsLegalMove(),false);
-        assertEquals(mThreeInARow.blocksData[0][0].getContents(), "X");
+        assertFalse(mThreeInARow.blocksData[0][0].getIsLegalMove());
+        assertEquals("X", mThreeInARow.blocksData[0][0].getContents());
     }
 
     @Test
-    public void testModelNextTurn(){
+    public void testModelNextTurn() {
         RowGameModel.Player player = mThreeInARow.getPlayer();
         mThreeInARow.nextTurn();
         assertNotEquals(player, mThreeInARow.getPlayer());
@@ -77,40 +79,43 @@ public class TestExample {
     }
 
     @Test
-    public void testView(){
-        assertEquals(gTicTacToe.gameStatusView.playerturn.getText(), "Player 1 to play 'X'");
-        for(int i = 0; i < 3; i++) for(int j = 0; j < 3; j++)
-            assertEquals(gTicTacToe.gameBoardView.blocks[i][j].getText(), "");
+    public void testView() {
+        assertEquals("Player 1 to play 'X'", gTicTacToe.gameStatusView.playerturn.getText());
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                assertEquals("", gTicTacToe.gameBoardView.blocks[i][j].getText());
+            }
+        }
     }
 
     @Test
-    public void testTicTacIllegal(){
+    public void testTicTacIllegal() {
         gTicTacToe.gameBoardView.blocks[0][0].doClick();
-        assertEquals(mTicTacToe.blocksData[0][0].getContents(), "X");
+        assertEquals("X", mTicTacToe.blocksData[0][0].getContents());
         gTicTacToe.gameBoardView.blocks[0][0].doClick();
-        assertEquals(mTicTacToe.blocksData[0][0].getContents(), "X");
+        assertEquals("X", mTicTacToe.blocksData[0][0].getContents());
     }
 
     @Test
-    public void testTicTacLegal(){
+    public void testTicTacLegal() {
         gTicTacToe.gameBoardView.blocks[0][0].doClick();
-        assertEquals(mTicTacToe.blocksData[0][0].getContents(), "X");
+        assertEquals("X", mTicTacToe.blocksData[0][0].getContents());
         gTicTacToe.gameBoardView.blocks[0][1].doClick();
-        assertEquals(mTicTacToe.blocksData[0][1].getContents(), "O");
+        assertEquals("O", mTicTacToe.blocksData[0][1].getContents());
     }
 
     @Test
-    public void testTicTacPlayer1Wins(){
+    public void testTicTacPlayer1Wins() {
         gTicTacToe.gameBoardView.blocks[0][0].doClick();
         gTicTacToe.gameBoardView.blocks[1][0].doClick();
         gTicTacToe.gameBoardView.blocks[0][1].doClick();
         gTicTacToe.gameBoardView.blocks[2][0].doClick();
         gTicTacToe.gameBoardView.blocks[0][2].doClick();
-        assertEquals(mTicTacToe.getFinalResult(), "Player 1 wins!");
+        assertEquals("Player 1 wins!", mTicTacToe.getFinalResult());
     }
 
     @Test
-    public void testTicTacDraw(){
+    public void testTicTacDraw() {
         gTicTacToe.gameBoardView.blocks[0][0].doClick();
         gTicTacToe.gameBoardView.blocks[0][1].doClick();
         gTicTacToe.gameBoardView.blocks[0][2].doClick();
@@ -120,43 +125,42 @@ public class TestExample {
         gTicTacToe.gameBoardView.blocks[1][0].doClick();
         gTicTacToe.gameBoardView.blocks[1][1].doClick();
         gTicTacToe.gameBoardView.blocks[1][2].doClick();
-        assertEquals(mTicTacToe.getFinalResult(), "Game ends in a draw");
+        assertEquals("Game ends in a draw", mTicTacToe.getFinalResult());
     }
-    
+
     @Test
-    public void testTicTacReset(){
+    public void testTicTacReset() {
         gTicTacToe.gameBoardView.blocks[0][0].doClick();
         cTicTacToe.reset(mTicTacToe);
-        assertEquals(mTicTacToe.movesLeft, 9);
-        assertEquals(mTicTacToe.blocksData[0][0].getContents(), "");
+        assertEquals(9, mTicTacToe.movesLeft);
+        assertEquals("", mTicTacToe.blocksData[0][0].getContents());
     }
 
     @Test
-    public void testThreeInARowIllegal(){
+    public void testThreeInARowIllegal() {
         gThreeInARow.gameBoardView.blocks[1][1].doClick();
-        assertEquals(mThreeInARow.blocksData[1][1].getIsLegalMove(), false);
-        assertEquals(mThreeInARow.blocksData[1][1].getContents(), "");
-
+        assertFalse(mThreeInARow.blocksData[1][1].getIsLegalMove());
+        assertEquals("", mThreeInARow.blocksData[1][1].getContents());
     }
 
     @Test
-    public void testThreeInARowLegal(){
+    public void testThreeInARowLegal() {
         gThreeInARow.gameBoardView.blocks[2][2].doClick();
-        assertEquals(mThreeInARow.blocksData[2][2].getContents(), "X");
+        assertEquals("X", mThreeInARow.blocksData[2][2].getContents());
     }
 
     @Test
-    public void testThreeInARowPlayer1Wins(){
+    public void testThreeInARowPlayer1Wins() {
         gThreeInARow.gameBoardView.blocks[2][0].doClick();
         gThreeInARow.gameBoardView.blocks[2][1].doClick();
         gThreeInARow.gameBoardView.blocks[1][0].doClick();
         gThreeInARow.gameBoardView.blocks[1][1].doClick();
         gThreeInARow.gameBoardView.blocks[0][0].doClick();
-        assertEquals(mThreeInARow.getFinalResult(), "Player 1 wins!");
+        assertEquals("Player 1 wins!", mThreeInARow.getFinalResult());
     }
 
     @Test
-    public void testThreeInARowDraw(){
+    public void testThreeInARowDraw() {
         gThreeInARow.gameBoardView.blocks[2][0].doClick();
         gThreeInARow.gameBoardView.blocks[2][1].doClick();
         gThreeInARow.gameBoardView.blocks[1][0].doClick();
@@ -166,14 +170,14 @@ public class TestExample {
         gThreeInARow.gameBoardView.blocks[2][2].doClick();
         gThreeInARow.gameBoardView.blocks[1][2].doClick();
         gThreeInARow.gameBoardView.blocks[0][2].doClick();
-        assertEquals(mThreeInARow.getFinalResult(), "Game ends in a draw");
+        assertEquals("Game ends in a draw", mThreeInARow.getFinalResult());
     }
 
     @Test
-    public void testThreeInARowReset(){
+    public void testThreeInARowReset() {
         gThreeInARow.gameBoardView.blocks[0][0].doClick();
         cThreeInARow.reset(mThreeInARow);
-        assertEquals(mThreeInARow.movesLeft, 9);
-        assertEquals(mThreeInARow.blocksData[0][0].getContents(), "");
+        assertEquals(9, mThreeInARow.movesLeft);
+        assertEquals("", mThreeInARow.blocksData[0][0].getContents());
     }
 }
