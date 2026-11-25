@@ -1,17 +1,12 @@
 package model;
 
-
-import view.RowGameGUI;
-
-import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 /**
  * Model representing the 3x3 board state, active player, remaining moves, and game outcome.
  */
-public class RowGameModel
-{
+public class RowGameModel {
     /**
      * 3x3 matrix of board block models.
      */
@@ -27,7 +22,7 @@ public class RowGameModel
     /**
      * Represents the two players in the game.
      */
-    public enum Player{
+    public enum Player {
         /**
          * First player, using mark {@code "X"}.
          */
@@ -42,8 +37,10 @@ public class RowGameModel
          *
          * @return The next {@link Player}.
          */
-        public Player nextTurn(){
-            if(this == Player1) return Player2;
+        public Player nextTurn() {
+            if (this == Player1) {
+                return Player2;
+            }
             return Player1;
         }
 
@@ -54,7 +51,9 @@ public class RowGameModel
          */
         @Override
         public String toString() {
-            if (this == Player1) return "Player 1";
+            if (this == Player1) {
+                return "Player 1";
+            }
             return "Player 2";
         }
 
@@ -63,17 +62,24 @@ public class RowGameModel
          *
          * @return {@code "X"} for Player 1 or {@code "O"} for Player 2.
          */
-        public String mark(){
-            if(this == Player1) return "X";
+        public String mark() {
+            if (this == Player1) {
+                return "X";
+            }
             return "O";
         }
     }
 
-    private enum Result{
+    private enum Result {
         Ongoing, Draw, Win;
-        public String toString(Player player){
-            if(this == Ongoing) return null;
-            if(this == Draw) return "Game ends in a draw";
+
+        public String toString(Player player) {
+            if (this == Ongoing) {
+                return null;
+            }
+            if (this == Draw) {
+                return "Game ends in a draw";
+            }
             return player.toString() + " wins!";
         }
     }
@@ -82,7 +88,7 @@ public class RowGameModel
      * Initializes a new 3x3 board of {@link RowBlockModel} instances and resets the game state.
      */
     public RowGameModel() {
-	    super();
+        super();
 
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 3; col++) {
@@ -122,7 +128,7 @@ public class RowGameModel
     /**
      * Marks the game as a draw and notifies registered listeners.
      */
-    public void gameDraw(){
+    public void gameDraw() {
         result = Result.Draw;
         setFinalResult(result.toString(player));
     }
@@ -130,13 +136,13 @@ public class RowGameModel
     /**
      * Marks the current player as the winner and notifies registered listeners.
      */
-    public void playerWins(){
+    public void playerWins() {
         result = Result.Win;
         setFinalResult(result.toString(player));
     }
 
     private void setFinalResult(String finalResult) {
-	    pcs.firePropertyChange("result", null, finalResult);
+        pcs.firePropertyChange("result", null, finalResult);
     }
 
     /**
@@ -151,7 +157,7 @@ public class RowGameModel
     /**
      * Advances to the next player's turn and notifies registered listeners.
      */
-    public void nextTurn(){
+    public void nextTurn() {
         player = player.nextTurn();
         pcs.firePropertyChange("player", null, player);
     }
@@ -159,7 +165,7 @@ public class RowGameModel
     /**
      * Resets the move counter, result, and active player back to Player 1.
      */
-    public void reset(){
+    public void reset() {
         movesLeft = 9;
         result = Result.Ongoing;
         player = Player.Player2;

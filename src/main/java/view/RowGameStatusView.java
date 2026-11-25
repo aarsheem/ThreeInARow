@@ -10,12 +10,10 @@ import javax.swing.JTextArea;
 
 import model.RowGameModel;
 
-
 /**
  * Swing view displaying the current player's turn or the final game result.
  */
-public class RowGameStatusView
-{
+public class RowGameStatusView {
     /**
      * Text area displaying turn and outcome messages.
      */
@@ -39,8 +37,12 @@ public class RowGameStatusView
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
                 String property = evt.getPropertyName();
-                if(property.equals("result")) updateResult((String)evt.getNewValue());
-                if(property.equals("player")) updatePlayer((RowGameModel.Player) evt.getNewValue());
+                if (property.equals("result")) {
+                    updateResult((String) evt.getNewValue());
+                }
+                if (property.equals("player")) {
+                    updatePlayer((RowGameModel.Player) evt.getNewValue());
+                }
             }
         });
     }
@@ -51,7 +53,7 @@ public class RowGameStatusView
      * @param player The player whose turn is active.
      */
     public void updatePlayer(RowGameModel.Player player) {
-    	playerturn.setText(player.toString() + " to play '" + player.mark() + "'");
+        playerturn.setText(player.toString() + " to play '" + player.mark() + "'");
     }
 
     /**
@@ -59,7 +61,7 @@ public class RowGameStatusView
      *
      * @param result The final result string to display.
      */
-    public void updateResult(String result){
-    	playerturn.setText(result);
-	}
+    public void updateResult(String result) {
+        playerturn.setText(result);
+    }
 }

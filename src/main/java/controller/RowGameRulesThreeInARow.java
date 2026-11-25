@@ -36,7 +36,9 @@ public class RowGameRulesThreeInARow extends RowGameRulesStrategy {
 
         gameModel.blocksData[row][col].setContents(player.mark());
         gameModel.blocksData[row][col].setIsLegalMove(false);
-        if(row != 0) gameModel.blocksData[row-1][col].setIsLegalMove(true);//nextturn, draw, win
+        if (row != 0) {
+            gameModel.blocksData[row - 1][col].setIsLegalMove(true); //nextturn, draw, win
+        }
     }
 
     /**

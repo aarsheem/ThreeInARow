@@ -3,20 +3,19 @@ package view;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import java.awt.*;
-import java.awt.event.*;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import controller.RowGameController;
 import model.RowGameModel;
 
-
 /**
  * Main Swing window assembling the board view, reset control, and status view.
  */
-public class RowGameGUI
-{
+public class RowGameGUI {
     /**
      * Main application frame.
      */
@@ -31,7 +30,6 @@ public class RowGameGUI
      */
     public RowGameStatusView gameStatusView; //can be private
 
-
     /**
      * Creates a new game window initializing the board, reset button, and status panel.
      *
@@ -44,13 +42,13 @@ public class RowGameGUI
         gui.setSize(new Dimension(500, 350));
         gui.setResizable(true);
 
-	    gameBoardView = new RowGameBoardView(gameController, gameModel);
+        gameBoardView = new RowGameBoardView(gameController, gameModel);
         JPanel gamePanel = gameBoardView.gamePanel;
 
         JPanel options = new JPanel(new FlowLayout());
         options.add(reset);
 
-	    gameStatusView = new RowGameStatusView(gameModel);
+        gameStatusView = new RowGameStatusView(gameModel);
         JPanel messages = gameStatusView.messages;
 
         gui.add(gamePanel, BorderLayout.NORTH);

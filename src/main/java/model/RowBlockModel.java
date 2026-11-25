@@ -1,26 +1,24 @@
 package model;
 
-
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 /**
  * The RowBlockModel class represents a given block in the game.
  */
-public class RowBlockModel
-{
+public class RowBlockModel {
     /**
-     * The game that contains this block
+     * The game that contains this block.
      */
     private RowGameModel game;
 
     /**
-     * The current value of the contents of this block
+     * The current value of the contents of this block.
      */
     private String contents;
 
     /**
-     * Whether or not it is currently legal to move into this block
+     * Whether or not it is currently legal to move into this block.
      */
     private boolean isLegalMove;
 
@@ -49,7 +47,7 @@ public class RowBlockModel
      * @return The containing {@link RowGameModel}.
      */
     public RowGameModel getGame() {
-	    return this.game;
+        return this.game;
     }
 
     /**
@@ -80,7 +78,7 @@ public class RowBlockModel
         if (newValue == null) {
             throw new IllegalArgumentException("The value must be non-null.");
         }
-	    this.contents = newValue;
+        this.contents = newValue;
         this.pcs.firePropertyChange("content", null, newValue);
     }
 
@@ -90,7 +88,7 @@ public class RowBlockModel
      * @return The non-null String value
      */
     public String getContents() {
-	return this.contents;
+        return this.contents;
     }
 
     /**
@@ -99,7 +97,7 @@ public class RowBlockModel
      * @param isLegalMove {@code true} if a move is legal; {@code false} otherwise.
      */
     public void setIsLegalMove(boolean isLegalMove) {
-	    this.isLegalMove = isLegalMove;
+        this.isLegalMove = isLegalMove;
         this.pcs.firePropertyChange("legal", null, isLegalMove);
     }
 
@@ -109,14 +107,14 @@ public class RowBlockModel
      * @return {@code true} if a move is legal; {@code false} otherwise.
      */
     public boolean getIsLegalMove() {
-	return this.isLegalMove;
+        return this.isLegalMove;
     }
 
     /**
      * Resets this block before starting a new game.
      */
     public void reset() {
-	    this.setContents("");
-	    this.setIsLegalMove(false);
+        this.setContents("");
+        this.setIsLegalMove(false);
     }
 }
