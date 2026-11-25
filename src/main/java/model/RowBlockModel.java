@@ -43,14 +43,29 @@ public class RowBlockModel
         this.reset();
     }
 
+    /**
+     * Returns the game model that owns this block.
+     *
+     * @return The containing {@link RowGameModel}.
+     */
     public RowGameModel getGame() {
 	    return this.game;
     }
 
+    /**
+     * Registers a listener for property change events on this block.
+     *
+     * @param listener The listener to register.
+     */
     public void addPropertyChangeListener(PropertyChangeListener listener) {
         this.pcs.addPropertyChangeListener(listener);
     }
 
+    /**
+     * Unregisters a previously added property change listener from this block.
+     *
+     * @param listener The listener to remove.
+     */
     public void removePropertyChangeListener(PropertyChangeListener listener) {
         this.pcs.removePropertyChangeListener(listener);
     }
@@ -78,11 +93,21 @@ public class RowBlockModel
 	return this.contents;
     }
 
+    /**
+     * Sets whether moving into this block is currently legal and notifies listeners.
+     *
+     * @param isLegalMove {@code true} if a move is legal; {@code false} otherwise.
+     */
     public void setIsLegalMove(boolean isLegalMove) {
 	    this.isLegalMove = isLegalMove;
         this.pcs.firePropertyChange("legal", null, isLegalMove);
     }
 
+    /**
+     * Returns whether moving into this block is currently legal.
+     *
+     * @return {@code true} if a move is legal; {@code false} otherwise.
+     */
     public boolean getIsLegalMove() {
 	return this.isLegalMove;
     }

@@ -4,10 +4,25 @@ import model.RowGameModel;
 
 import java.util.Arrays;
 
+/**
+ * Abstract strategy defining the rules, win detection, and tie detection for 3x3 row games.
+ */
 public abstract class RowGameRulesStrategy {
 
+    /**
+     * Resets the board and legal moves in the given model according to the game rules.
+     *
+     * @param gameModel The game model to reset.
+     */
     public abstract void reset(RowGameModel gameModel);
 
+    /**
+     * Applies a move at the given coordinates according to the game rules.
+     *
+     * @param gameModel The game model to update.
+     * @param row The zero-based row index of the move.
+     * @param col The zero-based column index of the move.
+     */
     public abstract void move(RowGameModel gameModel, int row, int col);
 
     private boolean isWinDir(RowGameModel gameModel, int[] pos, int[] dir){
@@ -25,6 +40,12 @@ public abstract class RowGameRulesStrategy {
         return true;
     }
 
+    /**
+     * Checks whether any player has achieved three matching marks in a row, column, or diagonal.
+     *
+     * @param gameModel The game model to evaluate.
+     * @return {@code true} if a winning line exists; {@code false} otherwise.
+     */
     public boolean isWin(RowGameModel gameModel) {
         if(gameModel.movesLeft > 4) return false;
         final int[] hor = {0, 1}, vert = {1, 0}, diag1 = {1, 1}, diag2 = {1, -1};
@@ -45,6 +66,12 @@ public abstract class RowGameRulesStrategy {
     }
 
 
+    /**
+     * Checks whether the game has ended in a tie (no moves remaining).
+     *
+     * @param gameModel The game model to evaluate.
+     * @return {@code true} if no moves remain; {@code false} otherwise.
+     */
     public boolean isTie(RowGameModel gameModel) {
         return gameModel.movesLeft == 0;
     }

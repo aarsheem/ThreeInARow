@@ -12,16 +12,31 @@ import controller.RowGameController;
 import model.RowGameModel;
 
 
+/**
+ * Main Swing window assembling the board view, reset control, and status view.
+ */
 public class RowGameGUI
 {
+    /**
+     * Main application frame.
+     */
     public JFrame gui;
+    /**
+     * Sub-view displaying the 3x3 game board.
+     */
     public RowGameBoardView gameBoardView; //can be private
     private JButton reset = new JButton("Reset");
+    /**
+     * Sub-view displaying turn and result messages.
+     */
     public RowGameStatusView gameStatusView; //can be private
 
 
     /**
-     * Creates a new game initializing the GUI.
+     * Creates a new game window initializing the board, reset button, and status panel.
+     *
+     * @param gameController The controller managing moves and resets.
+     * @param gameModel The model representing the current game state.
      */
     public RowGameGUI(RowGameController gameController, RowGameModel gameModel) {
         gui = new JFrame(gameController.toString());

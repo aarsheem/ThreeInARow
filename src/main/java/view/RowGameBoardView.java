@@ -16,11 +16,26 @@ import controller.RowGameController;
 import model.RowGameModel;
 
 
+/**
+ * Swing view rendering the 3x3 grid of interactive board buttons.
+ */
 public class RowGameBoardView
 {
+    /**
+     * 3x3 matrix of Swing buttons representing each board cell.
+     */
     public JButton[][] blocks = new JButton[3][3];
+    /**
+     * Container panel holding the 3x3 board grid.
+     */
     public JPanel gamePanel = new JPanel(new FlowLayout());
 
+    /**
+     * Builds the 3x3 button grid and binds click and model property-change listeners.
+     *
+     * @param gameController The controller handling board move actions.
+     * @param gameModel The game model whose block states are observed.
+     */
     public RowGameBoardView(RowGameController gameController, RowGameModel gameModel) {
         JPanel game = new JPanel(new GridLayout(3,3));
         gamePanel.add(game, BorderLayout.CENTER);

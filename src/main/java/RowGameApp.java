@@ -3,10 +3,15 @@ import model.RowGameModel;
 import view.RowGameGUI;
 
 
+/**
+ * Entry point for the ThreeInARow and Tic-Tac-Toe desktop application.
+ */
 public class RowGameApp 
 {
-    /**                                                                             
-     * Starts a new game in the GUI.
+    /**
+     * Starts a new game in the GUI using the selected rule set.
+     *
+     * @param args Command-line arguments; pass {@code "ThreeInARow"} (default) or another value for Tic-Tac-Toe.
      */
     public static void main(String[] args) {
         RowGameRulesStrategy rule;
