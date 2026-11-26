@@ -1,29 +1,79 @@
 [![SonarQube Cloud](https://sonarcloud.io/images/project_badges/sonarcloud-light.svg)](https://sonarcloud.io/summary/new_code?id=alu0101679525_ThreeInARow)
 
 ## ThreeInARow
-This is a basic Java implementation of the Three in a Row game.
 
-### How to build and test (from Terminal):
+This is a basic Java implementation of the Three in a Row and Tic-Tac-Toe games.
 
-1. Make sure that you have Apache Ant installed. Run each ant command in the threeinarow folder, which contains the `build.xml` build file.
+### Requirements
 
-2. Run `ant document` to generate the javadoc (a hypertext description) for all the java classes. Generated hypertext description will be in the `jdoc` folder. Open the `index.html` file. 
+- Java Development Kit (JDK) 17 or later.
+- Apache Maven.
 
-3. Run `ant compile` to compile all the java classes. Compiled classes will be in the `bin` folder.
+Run all Maven commands from the project root directory, where `pom.xml` is located.
 
-4. Run `ant test` to run all unit tests.
+### How to build and test
 
-### How to run (from Terminal):
+Compile the project:
 
-1. There are two choices of games which you can play. One is Tic-Tac-Toe, other is Three-In-A-Row. 
-2. After building the project (i.e., running `ant`), run the following command in the threeinarow folder:
-   `java -cp bin RowGameApp <Game>`. 
-3. You need to pass `TicTacToe` or `ThreeInARow` in place of `<Game>` in the command line argument to choose the game you want to run.
-4. By default, code runs with `ThreeInARow`.
+```bash
+mvn clean compile
+```
 
-### How to clean up (from Terminal):
+Run the unit tests:
 
-1. Run `ant clean` to clean the project (i.e., delete all generated files).
+```bash
+mvn test
+```
 
-### Commits:
-Even though I have tried to have a set of coherent commits for the three different portions of project, some parts are inter-mixed. Note that the commit corresponding to the code given is 'HW2'.
+The JaCoCo coverage report is generated at `target/site/jacoco/index.html` when the tests run.
+
+Run the full verification, including tests, Checkstyle, and the JaCoCo coverage check:
+
+```bash
+mvn verify
+```
+
+The verification requires at least 70% line coverage. Checkstyle uses the rules in `checkstyle.xml`; violations fail the verification build.
+
+### Javadoc
+
+Generate the Javadoc documentation with:
+
+```bash
+mvn javadoc:javadoc
+```
+
+Open `target/site/apidocs/index.html` to view the generated documentation.
+
+### How to run
+
+Build the executable JAR first:
+
+```bash
+mvn package
+```
+
+Run the default game (Three in a Row):
+
+```bash
+java -jar target/threeinarow-1.0.0-SNAPSHOT.jar
+```
+
+`RowGameApp` accepts an optional argument to select the game:
+
+- `ThreeInARow` — Three in a Row (the default).
+- `TicTacToe` — Tic-Tac-Toe.
+
+For example, to run Tic-Tac-Toe:
+
+```bash
+java -jar target/threeinarow-1.0.0-SNAPSHOT.jar TicTacToe
+```
+
+### How to clean up
+
+Remove generated build files with:
+
+```bash
+mvn clean
+```
