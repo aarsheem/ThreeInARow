@@ -1,3 +1,5 @@
+[![SonarQube Cloud](https://sonarcloud.io/images/project_badges/sonarcloud-light.svg)](https://sonarcloud.io/summary/new_code?id=alu0101679525_ThreeInARow)
+
 ## ThreeInARow
 This is a basic Java implementation of the Three in a Row game.
 
@@ -24,4 +26,4 @@ This is a basic Java implementation of the Three in a Row game.
 1. Run `ant clean` to clean the project (i.e., delete all generated files).
 
 ### Commits:
-Even though I have tried to have a set of coherent commits for the three different portions of project, some parts are inter-mixed. Note that the commit corresponding to the code given is 'HW2'.  
+Even though I have tried to have a set of coherent commits for the three different portions of project, some parts are inter-mixed. Note that the commit corresponding to the code given is 'HW2'.

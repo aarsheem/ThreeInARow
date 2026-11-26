@@ -1,3 +1,24 @@
+# Maven target directory
+target/
+
+# IntelliJ IDEA / JetBrains
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# Otros IDEs y editores
+.vscode/
+*.swp
+*.swo
+
+# Sistema Operativo (macOS, Windows, Linux)
+.DS_Store
+Thumbs.db
+Desktop.ini
+*~
+
 # Compiled class file
 *.class
 
