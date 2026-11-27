@@ -3,7 +3,9 @@ import controller.RowGameRulesThreeInARow;
 import controller.RowGameRulesTicTacToe;
 import model.RowBlockModel;
 import model.RowGameModel;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.DisplayName;
 
 import java.beans.PropertyChangeListener;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -18,9 +20,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 /**
  * Additional unit tests covering core board, model, and rule logic.
  */
+@Tag("unit")
 public class RowGameLogicTest {
 
     @Test
+    @Tag("model")
+    @DisplayName("El bloque valida contenidos y notifica a sus listeners")
     public void testBlockModelGettersSettersAndListeners() {
         RowGameModel model = new RowGameModel();
         RowBlockModel block = model.blocksData[0][0];
@@ -41,6 +46,8 @@ public class RowGameLogicTest {
     }
 
     @Test
+    @Tag("model")
+    @DisplayName("El modelo notifica cambios de turno y conserva el resultado")
     public void testModelListenersAndOngoingResult() {
         RowGameModel model = new RowGameModel();
         assertNull(model.getFinalResult());
@@ -58,6 +65,9 @@ public class RowGameLogicTest {
     }
 
     @Test
+    @Tag("tic-tac-toe")
+    @Tag("rules")
+    @DisplayName("El jugador 2 gana Tic-Tac-Toe en la diagonal principal")
     public void testTicTacToePlayer2WinsMainDiagonal() {
         RowGameModel model = new RowGameModel();
         RowGameController controller = new RowGameController(model, new RowGameRulesTicTacToe());
@@ -78,6 +88,9 @@ public class RowGameLogicTest {
     }
 
     @Test
+    @Tag("tic-tac-toe")
+    @Tag("rules")
+    @DisplayName("El jugador 1 gana Tic-Tac-Toe en la diagonal secundaria")
     public void testTicTacToePlayer1WinsAntiDiagonal() {
         RowGameModel model = new RowGameModel();
         RowGameController controller = new RowGameController(model, new RowGameRulesTicTacToe());
@@ -92,6 +105,9 @@ public class RowGameLogicTest {
     }
 
     @Test
+    @Tag("three-in-a-row")
+    @Tag("rules")
+    @DisplayName("Tres en raya desbloquea el movimiento superior")
     public void testThreeInARowInitialLegalMovesAndUnlockingAbove() {
         RowGameModel model = new RowGameModel();
         RowGameController controller = new RowGameController(model, new RowGameRulesThreeInARow());
@@ -109,6 +125,8 @@ public class RowGameLogicTest {
     }
 
     @Test
+    @Tag("controller")
+    @DisplayName("Los controladores muestran el nombre de su estrategia")
     public void testControllerToString() {
         RowGameModel model = new RowGameModel();
         RowGameController ticTacToeController = new RowGameController(model, new RowGameRulesTicTacToe());
